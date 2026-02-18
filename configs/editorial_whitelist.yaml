@@ -1,0 +1,33 @@
+# Whitelist editoriale: qui decidi chi è "comprovato valore".
+# Se strict_creator_whitelist: true, i feed "creator" NON in whitelist vengono scartati (o fortemente penalizzati).
+strict_creator_whitelist: true
+
+creators:
+  - name: "piero savastano"
+    trust: 0.84
+    aliases: ["piero-savastano"]
+
+  - name: "simone rizzo"
+    trust: 0.82
+    aliases: ["simone-rizzo"]
+
+  - name: "clelia astrelli"
+    trust: 0.80
+    aliases: ["clelia-astrelli"]
+
+  - name: "datapizza"
+    trust: 0.80
+    aliases: ["data pizza", "datapizza.it"]
+
+orgs:
+  - name: "openai"
+    trust: 0.95
+    aliases: ["openai news"]
+
+  - name: "anthropic"
+    trust: 0.95
+    aliases: ["anthropic news"]
+
+  - name: "deepmind"
+    trust: 0.90
+    aliases: ["google deepmind blog", "deepmind google"]

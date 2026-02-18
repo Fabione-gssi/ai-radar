@@ -1,0 +1,36 @@
+default_trust: 0.55
+creator_default_trust: 0.7
+org_trust:
+  openai: 0.95
+  anthropic: 0.95
+  google: 0.9
+  deepmind: 0.9
+  huggingface: 0.87
+  vllm-project: 0.86
+  ollama: 0.86
+  ggerganov: 0.86
+  arxiv: 0.82
+  ai4business: 0.78
+  datapizza: 0.8
+  agenda-digitale: 0.76
+  economyup: 0.75
+  startupitalia: 0.74
+creator_trust:
+  piero savastano: 0.84
+  simone rizzo: 0.82
+  clelia astrelli: 0.8
+  datapizza: 0.8
+org_alias:
+  openai news: openai
+  anthropic news: anthropic
+  google deepmind blog: deepmind
+  deepmind google: deepmind
+  hf: huggingface
+  hugging face: huggingface
+  agenda digitale: agenda-digitale
+creator_alias:
+  simone-rizzo: simone rizzo
+  piero-savastano: piero savastano
+  clelia-astrelli: clelia astrelli
+strict_creator_whitelist: true
+creator_block_trust: 0.05

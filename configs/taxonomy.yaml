@@ -1,0 +1,185 @@
+content_types:
+  tool:
+    keywords:
+      - "framework"
+      - "sdk"
+      - "library"
+      - "tool"
+      - "plugin"
+      - "inference engine"
+      - "serving"
+      - "pip install"
+      - "api"
+      - "cli"
+      - "llama_index"
+      - "langchain"
+      - "vllm"
+      - "ollama"
+      - "strumento"
+      - "libreria"
+      - "pacchetto"
+
+  research:
+    keywords:
+      - "paper"
+      - "arxiv"
+      - "preprint"
+      - "benchmark"
+      - "dataset"
+      - "state of the art"
+      - "sota"
+      - "ablation"
+      - "ricerca"
+      - "studio"
+
+  release:
+    keywords:
+      - "release"
+      - "released"
+      - "launch"
+      - "launched"
+      - "announced"
+      - "new model"
+      - "weights"
+      - "checkpoint"
+      - "model card"
+      - "v1."
+      - "v2."
+      - "beta"
+      - "stable"
+      - "rilascio"
+      - "annuncio"
+      - "nuovo modello"
+
+  industry:
+    keywords:
+      - "case study"
+      - "customer story"
+      - "deployment"
+      - "pilot"
+      - "roi"
+      - "kpi"
+      - "cost saving"
+      - "manufacturing"
+      - "supply chain"
+      - "contact center"
+      - "fraud"
+      - "compliance"
+      - "caso studio"
+      - "caso d'uso"
+      - "adozione"
+      - "produzione"
+      - "industriale"
+
+  news:
+    keywords:
+      - "news"
+      - "update"
+      - "trend"
+      - "interview"
+      - "event"
+      - "notizia"
+      - "aggiornamento"
+      - "intervista"
+
+topics:
+  - name: "New Models & Releases"
+    keywords:
+      - "new model"
+      - "release"
+      - "weights"
+      - "checkpoint"
+      - "model card"
+      - "rilascio"
+      - "nuovo modello"
+
+  - name: "Frameworks & Tooling"
+    keywords:
+      - "framework"
+      - "sdk"
+      - "library"
+      - "tool"
+      - "libreria"
+      - "strumento"
+      - "ollama"
+      - "vllm"
+      - "transformers"
+
+  - name: "Agents & Automation"
+    keywords:
+      - "agent"
+      - "tool calling"
+      - "workflow"
+      - "automation"
+      - "agente"
+      - "automazione"
+
+  - name: "RAG & Search"
+    keywords:
+      - "rag"
+      - "retrieval"
+      - "embedding"
+      - "semantic search"
+      - "knowledge base"
+      - "ricerca semantica"
+
+  - name: "Industrial Use Cases"
+    keywords:
+      - "case study"
+      - "customer story"
+      - "manufacturing"
+      - "quality"
+      - "maintenance"
+      - "supply chain"
+      - "contact center"
+      - "compliance"
+      - "roi"
+      - "caso studio"
+      - "industriale"
+      - "produzione"
+
+tag_playbook:
+  agents:
+    desc: "Agenti, tool-calling, orchestrazione workflow (LangGraph/AutoGen/Crew)."
+    examples: ["tool calling", "langgraph", "autogen", "crew", "workflow"]
+  rag:
+    desc: "Retrieval Augmented Generation, search, vector DB, reranking."
+    examples: ["rag", "retrieval", "embedding", "rerank", "vector database"]
+  inference:
+    desc: "Inference/serving/ottimizzazione: quantizzazione, vLLM, GGUF, distillazione."
+    examples: ["quantization", "vllm", "gguf", "distillation", "serving"]
+  voice:
+    desc: "Audio/Voce: ASR, TTS, speech-to-text, transcription."
+    examples: ["asr", "tts", "speech", "transcription", "audio"]
+  eval:
+    desc: "Valutazione modelli: benchmark, dataset, SOTA, leaderboard."
+    examples: ["benchmark", "evaluation", "mmlu", "arena", "leaderboard"]
+  security:
+    desc: "Safety/Security: prompt injection, jailbreak, guardrails, red teaming."
+    examples: ["prompt injection", "jailbreak", "guardrails", "red team"]
+  industrial:
+    desc: "Applicazioni industriali e KPI/ROI, deployment in azienda."
+    examples: ["case study", "pilot", "roi", "kpi", "deployment"]
+
+tag_rules:
+  - tag: "agents"
+    keywords: ["agent", "tool calling", "workflow", "orchestration", "autogen", "crew", "langgraph", "planner"]
+    min_hits: 1
+  - tag: "rag"
+    keywords: ["rag", "retrieval", "vector", "embedding", "rerank", "bm25", "hybrid search", "knowledge base"]
+    min_hits: 1
+  - tag: "inference"
+    keywords: ["inference", "serving", "quantization", "distillation", "gguf", "kv cache", "vllm", "tensorrt", "onnx"]
+    min_hits: 1
+  - tag: "voice"
+    keywords: ["asr", "tts", "speech", "transcription", "audio", "diarization"]
+    min_hits: 1
+  - tag: "eval"
+    keywords: ["benchmark", "evaluation", "sota", "leaderboard", "mmlu", "mt-bench", "arena", "dataset"]
+    min_hits: 1
+  - tag: "security"
+    keywords: ["prompt injection", "jailbreak", "red team", "guardrail", "safety", "policy", "alignment"]
+    min_hits: 1
+  - tag: "industrial"
+    keywords: ["case study", "customer story", "deployment", "pilot", "roi", "kpi", "manufacturing", "supply chain", "contact center", "compliance"]
+    min_hits: 1

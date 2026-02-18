@@ -1,0 +1,136 @@
+language_policy:
+  allowed:
+  - it
+  - en
+  drop_disallowed: true
+  min_confidence: 0.6
+arxiv:
+  enabled: true
+  queries:
+  - name: LLM Core
+    search_query: cat:cs.CL OR cat:cs.LG OR cat:cs.AI
+    max_results: 35
+  - name: Agents + RAG
+    search_query: all:(agent OR "tool use" OR rag OR "retrieval augmented generation")
+      AND (cat:cs.AI OR cat:cs.CL)
+    max_results: 25
+  - name: Efficient Inference
+    search_query: all:("inference" OR "distillation" OR "quantization") AND (cat:cs.LG
+      OR cat:cs.CL)
+    max_results: 20
+github:
+  enabled: true
+  repos:
+  - openai/openai-python
+  - anthropics/anthropic-sdk-python
+  - vllm-project/vllm
+  - ollama/ollama
+  - huggingface/transformers
+  - ggerganov/llama.cpp
+  - langchain-ai/langchain
+  - microsoft/autogen
+  - run-llama/llama_index
+github_discovery:
+  enabled: true
+  per_query: 20
+  min_stars: 40
+  cap: 25
+  queries:
+  - (llm OR multimodal OR "vision-language") in:name,description,readme stars:>80
+  - (agent OR "tool calling" OR rag OR retrieval) in:name,description,readme stars:>60
+  - (voice OR tts OR asr OR transcription) in:name,description,readme stars:>40
+  - (copilot OR assistant OR workflow automation) in:name,description,readme stars:>40
+huggingface:
+  enabled: true
+  max_models: 120
+  discover_cap: 30
+  include_keywords:
+  - llm
+  - text-generation
+  - multimodal
+  - vision
+  - audio
+  - agent
+  - rag
+  - instruct
+  - reasoning
+  - asr
+  - tts
+  exclude_keywords:
+  - nsfw
+  - adult
+  allow_authors:
+  - openai
+  - anthropic
+  - google
+  - meta-llama
+  - mistralai
+  - microsoft
+  - qwen
+  - deepseek-ai
+  - allenai
+  - ibm-granite
+rss:
+  enabled: true
+  include_keywords:
+  - ai
+  - artificial intelligence
+  - machine learning
+  - llm
+  - model
+  - release
+  - agent
+  - automation
+  - rag
+  - roi
+  - use case
+  - caso d'uso
+  - applicazione
+  exclude_keywords:
+  - sport
+  - meteo
+  feeds:
+  - name: OpenAI News
+    url: https://openai.com/news/rss.xml
+    source_kind: institutional
+    source_weight: 1.0
+    lane_hint: reliable
+    fetch_fulltext: true
+    fulltext_min_chars: 350
+    fulltext_max_chars: 5500
+    fulltext_timeout_s: 10.0
+    fulltext_sleep_s: 0.0
+  - name: Anthropic News
+    url: https://www.anthropic.com/news/rss.xml
+    source_kind: institutional
+    source_weight: 1.0
+    lane_hint: reliable
+    fetch_fulltext: true
+    fulltext_min_chars: 350
+    fulltext_max_chars: 5500
+    fulltext_timeout_s: 10.0
+    fulltext_sleep_s: 0.0
+  - name: AI4Business
+    url: https://www.ai4business.it/feed/
+    source_kind: institutional
+    source_weight: 0.95
+    lane_hint: reliable
+    fetch_fulltext: true
+    fulltext_min_chars: 350
+    fulltext_max_chars: 5500
+    fulltext_timeout_s: 10.0
+    fulltext_sleep_s: 0.0
+  - name: ANSA Tecnologia
+    url: https://www.ansa.it/canale_tecnologia/notizie/tecnologia_rss.xml
+    source_kind: institutional
+    source_weight: 0.75
+    lane_hint: reliable
+creators:
+  enabled: true
+  feeds:
+  - name: Datapizza
+    url: https://anchor.fm/s/d11c510c/podcast/rss
+    creator_name: datapizza
+    source_kind: creator
+    source_weight: 0.92
+    lane_hint: scout

@@ -1,0 +1,20 @@
+weights:
+  source_trust: 0.28
+  novelty: 0.24
+  relevance: 0.2
+  actionability: 0.14
+  recency: 0.1
+  source_mix: 0.04
+recency_half_life_days: 7
+novelty_compare_last_n: 200
+min_quality_core: 0.45
+min_quality_scout: 0.62
+breakout_promote_threshold: 0.68
+creator_target_ratio: 0.4
+max_items_per_source_per_run: 30
+fulltext_max_fetch_per_run: 18
+min_trust_core: 0.6
+min_trust_scout: 0.4
+min_creator_trust: 0.75
+min_type_confidence_core: 0.28
+min_type_confidence_scout: 0.33
