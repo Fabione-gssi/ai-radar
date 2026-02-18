@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from radar.config import Config, load_config
+from radar.config import Config, load_config, get_database_url
 from radar.db import NewsDB
 from radar.utils import safe_text, canonicalize_url
 
@@ -186,10 +186,8 @@ def enrich_and_store(base_dir: Path) -> Dict[str, Any]:
     """
     cfg = load_config(base_dir)
 
-    db_path = base_dir / "data" / "news.duckdb"
-    db_path.parent.mkdir(parents=True, exist_ok=True)
-    db = NewsDB(db_path)
-
+    db = NewsDB(get_database_url())
+    
     try:
         raw_items = collect_items(cfg)
 

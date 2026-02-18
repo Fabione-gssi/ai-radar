@@ -7,14 +7,14 @@ from typing import Dict, List
 import pandas as pd
 import streamlit as st
 
-from radar.config import load_config
+from radar.config import load_config, get_database_url
 from radar.db import NewsDB
 from radar.pipeline import enrich_and_store
 from radar.processing.autotag import suggest_tags
 
 
 BASE_DIR = Path(__file__).parent
-DB_PATH = BASE_DIR / "data" / "news.duckdb"
+DB_URL = get_database_url()
 CFG = load_config(BASE_DIR)
 
 st.set_page_config(page_title="AI News Radar", layout="wide")
@@ -106,7 +106,7 @@ with st.sidebar:
     st.divider()
 
     # saved views
-    db_sv = NewsDB(DB_PATH)
+    db_sv = NewsDB(DB_URL)
     try:
         saved_names = db_sv.list_saved_views()
     finally:
@@ -117,7 +117,7 @@ with st.sidebar:
     col_a, col_b = st.columns(2)
     with col_a:
         if st.button("Applica view"):
-            db_load = NewsDB(DB_PATH)
+            db_load = NewsDB(DB_URL)
             try:
                 _load_saved_view_into_session(db_load, selected_view)
             finally:
@@ -125,7 +125,7 @@ with st.sidebar:
             st.rerun()
     with col_b:
         if st.button("Elimina view") and selected_view:
-            db_del = NewsDB(DB_PATH)
+            db_del = NewsDB(DB_URL)
             try:
                 db_del.delete_saved_view(selected_view)
             finally:
@@ -136,7 +136,7 @@ with st.sidebar:
     new_view_name = st.text_input("Nome nuova view")
     if st.button("Salva filtri correnti"):
         payload = {k: st.session_state.get(k) for k in DEFAULTS.keys()}
-        db_save = NewsDB(DB_PATH)
+        db_save = NewsDB(DB_URL)
         try:
             db_save.save_view(new_view_name, payload)
         finally:
@@ -180,7 +180,7 @@ with st.sidebar:
         st.slider("Numero massimo risultati", 50, 500, key="limit", step=10)
 
     # tags
-    db_tags = NewsDB(DB_PATH)
+    db_tags = NewsDB(DB_URL)
     try:
         all_tags = db_tags.list_tags()
         tag_counts = db_tags.tag_counts(limit=30)
@@ -208,7 +208,7 @@ with st.sidebar:
 
 
 # Query
-db = NewsDB(DB_PATH)
+db = NewsDB(DB_URL)
 try:
     df = db.query_items(
         min_priority=float(st.session_state["min_priority"]),
@@ -245,7 +245,7 @@ edited = st.data_editor(
 selected_urls = edited.loc[edited["select"] == True, "url"].tolist()
 
 with st.form("bulk_tag_form"):
-    db_tags2 = NewsDB(DB_PATH)
+    db_tags2 = NewsDB(DB_URL)
     try:
         existing_tags = db_tags2.list_tags()
     finally:
@@ -263,7 +263,7 @@ if submitted:
     elif not tags_to_apply:
         st.warning("Specifica almeno un tag.")
     else:
-        db_bulk = NewsDB(DB_PATH)
+        db_bulk = NewsDB(DB_URL)
         try:
             if remove_mode:
                 n = db_bulk.remove_tags_bulk(selected_urls, tags_to_apply)
@@ -314,7 +314,7 @@ def render_cards(frame: pd.DataFrame) -> None:
                         reason = s.get("reason", "")
                         with cols[j]:
                             if st.button(f"+ {tag}", key=f"addtag_{row['url']}_{tag}"):
-                                db_one = NewsDB(DB_PATH)
+                                db_one = NewsDB(DB_URL)
                                 try:
                                     db_one.assign_tags_bulk([row["url"]], [tag])
                                 finally:

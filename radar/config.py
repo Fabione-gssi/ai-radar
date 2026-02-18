@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 import yaml
+import os
 
 
 @dataclass(frozen=True)
@@ -112,3 +113,24 @@ def load_config(base_dir: Path) -> Config:
 def topic_list(taxonomy: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Ritorna lista topics con keyword."""
     return taxonomy.get("topics", []) or []
+
+import os
+
+def get_database_url() -> str:
+    """
+    Ordine:
+    1) Streamlit secrets (quando gira in cloud)
+    2) env var DATABASE_URL (quando gira altrove)
+    """
+    try:
+        import streamlit as st  # lazy import
+        if "DATABASE_URL" in st.secrets:
+            return str(st.secrets["DATABASE_URL"])
+    except Exception:
+        pass
+
+    url = os.getenv("DATABASE_URL", "").strip()
+    if not url:
+        raise RuntimeError("DATABASE_URL non configurata (secrets o env).")
+    return url
+

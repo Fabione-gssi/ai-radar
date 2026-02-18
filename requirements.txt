@@ -9,3 +9,4 @@ beautifulsoup4
 lxml
 scikit-learn
 langcodes
+psycopg2-binary
