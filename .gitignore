@@ -7,3 +7,7 @@ __pycache__/
 patched_files/
 *.patch
 *.zip
+data/*.duckdb
+data/*.db
+*.duckdb
+*.db
