@@ -1,0 +1,10 @@
+streamlit
+duckdb
+feedparser
+requests
+httpx
+sentence-transformers
+pyyaml
+beautifulsoup4
+lxml
+scikit-learn
