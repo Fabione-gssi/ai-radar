@@ -8,3 +8,4 @@ pyyaml
 beautifulsoup4
 lxml
 scikit-learn
+langcodes
