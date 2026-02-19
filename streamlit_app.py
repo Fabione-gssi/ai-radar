@@ -12,6 +12,21 @@ from radar.db import NewsDB
 from radar.pipeline import enrich_and_store
 from radar.processing.autotag import suggest_tags
 
+import os
+import time
+import streamlit as st
+
+RUN_TOKEN = st.secrets.get("RUN_TOKEN", "")
+
+# Trigger pipeline via URL: ?run=1&token=...
+qp = st.query_params
+if qp.get("run") == "1" and RUN_TOKEN and qp.get("token") == RUN_TOKEN:
+    from radar.pipeline import enrich_and_store
+    start = time.time()
+    enrich_and_store()
+    st.success(f"Pipeline eseguita in {time.time() - start:.1f}s")
+    st.stop()
+
 
 BASE_DIR = Path(__file__).parent
 DB_URL = get_database_url()
