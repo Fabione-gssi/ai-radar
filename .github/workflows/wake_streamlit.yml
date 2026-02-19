@@ -2,15 +2,17 @@ name: Wake Streamlit App
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # ogni 30 minuti (modifica se vuoi)
+    - cron: "15 */4 * * *"
   workflow_dispatch:
 
 jobs:
   wake:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
@@ -22,69 +24,5 @@ jobs:
 
       - name: Wake app if sleeping
         env:
-          APP_URL: "https://ai-radar.streamlit.app/"
-        run: |
-          node - <<'NODE'
-          const { chromium } = require('playwright');
-
-          (async () => {
-            const url = process.env.APP_URL;
-            const browser = await chromium.launch({ headless: true });
-            const page = await browser.newPage();
-            page.setDefaultTimeout(20000);
-
-            await page.goto(url, { waitUntil: 'domcontentloaded' });
-
-            // Euristiche: Streamlit "sleep page" spesso ha un solo bottone visibile
-            // Cerchiamo un button con testo tipico "Wake", "Reconnect", "Start", ecc.
-            const candidates = [
-              'button:has-text("Wake")',
-              'button:has-text("wake")',
-              'button:has-text("Reconnect")',
-              'button:has-text("reconnect")',
-              'button:has-text("Start")',
-              'button:has-text("start")',
-              'button:has-text("Riattiva")',
-              'button:has-text("Ricollega")'
-            ];
-
-            let clicked = false;
-            for (const sel of candidates) {
-              const btn = await page.locator(sel).first();
-              if (await btn.count()) {
-                // se è visibile, click
-                if (await btn.isVisible()) {
-                  await btn.click();
-                  clicked = true;
-                  break;
-                }
-              }
-            }
-
-            // fallback: se c'è un solo bottone nella pagina, prova a cliccarlo
-            if (!clicked) {
-              const buttons = page.locator('button');
-              const n = await buttons.count();
-              if (n === 1) {
-                const b = buttons.first();
-                if (await b.isVisible()) {
-                  await b.click();
-                  clicked = true;
-                }
-              }
-            }
-
-            // attende un attimo post-click
-            if (clicked) {
-              await page.waitForTimeout(4000);
-              console.log("Wake attempt: clicked button");
-            } else {
-              console.log("Wake attempt: no sleep-button detected");
-            }
-
-            await browser.close();
-          })().catch(err => {
-            console.error(err);
-            process.exit(1);
-          });
-          NODE
+          APP_URL: https://ai-radar.streamlit.app/
+        run: node .github/scripts/wake-streamlit.js
